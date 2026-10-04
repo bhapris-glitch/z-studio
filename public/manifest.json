@@ -1,0 +1,60 @@
+{
+  "short_name": "Zavoka",
+  "name": "Zavoka Studio - 8K Neural Image & Product AI",
+  "description": "Professional 8K AI super resolution, studio lighting, product staging, and cinematic filters suite.",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#0b0d11",
+  "theme_color": "#00f2fe",
+  "display": "standalone",
+  "orientation": "portrait",
+  "categories": [
+    "photo",
+    "productivity",
+    "graphics"
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/studio-preview.jpg",
+      "type": "image/jpeg",
+      "sizes": "1080x1920",
+      "form_factor": "narrow"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Super HD Upscale",
+      "url": "/?tab=enhance",
+      "description": "Quick launch 8K Super Resolution workflow"
+    },
+    {
+      "name": "Product AI Staging",
+      "url": "/?tab=product-ai",
+      "description": "3D studio staging and auto cutout"
+    },
+    {
+      "name": "Export Lab",
+      "url": "/?tab=export",
+      "description": "Ultra 8K calibrated lossless export"
+    }
+  ]
+}
