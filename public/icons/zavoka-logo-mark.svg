@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" fill="none">
+  <!-- Dynamic Neural Grid Background Glow -->
+  <defs>
+    <radialGradient id="markGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#00f2fe" stop-opacity="0.25"/>
+      <stop offset="70%" stop-color="#7c3aed" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Top Crystal Facet: Electric Neon Cyan -->
+    <linearGradient id="topFacet" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00f2fe"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
+    </linearGradient>
+
+    <!-- Diagonal Neural Ray: High-frequency gradient Cyan -> Violet -> Magenta -->
+    <linearGradient id="diagFacet" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#00f2fe"/>
+      <stop offset="30%" stop-color="#3b82f6"/>
+      <stop offset="70%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#d946ef"/>
+    </linearGradient>
+
+    <!-- Bottom Crystal Facet: Deep Electric Violet -->
+    <linearGradient id="botFacet" x1="0%" y1="100%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a855f7"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+
+    <!-- Holographic Inner Refraction Slice -->
+    <linearGradient id="sliceGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.8"/>
+      <stop offset="50%" stop-color="#38bdf8" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#a855f7" stop-opacity="0.1"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Ambient Light Emission -->
+  <circle cx="128" cy="128" r="110" fill="url(#markGlow)"/>
+
+  <!-- Geometric Abstract 'Z' Logomark Motif -->
+  <g id="zavoka-brand-mark">
+    <!-- Top Horizontal Bar -->
+    <path d="M 44 68 L 212 68 L 176 108 L 44 108 Z" fill="url(#topFacet)"/>
+    
+    <!-- Top Right Origami Fold -->
+    <path d="M 212 68 L 212 108 L 176 108 Z" fill="#0284c7" opacity="0.85"/>
+
+    <!-- Central High-Velocity Diagonal Trajectory -->
+    <polygon points="212,68 176,108 80,188 116,148" fill="url(#diagFacet)"/>
+
+    <!-- Dynamic Prism Refraction Wedge -->
+    <polygon points="126,112 176,112 104,180 78,180" fill="url(#sliceGrad)"/>
+
+    <!-- Bottom Horizontal Bar -->
+    <path d="M 44 148 L 80 148 L 212 188 L 44 188 Z" fill="url(#botFacet)"/>
+    
+    <!-- Bottom Left Origami Fold -->
+    <path d="M 44 148 L 80 148 L 44 188 Z" fill="#4c1d95" opacity="0.9"/>
+
+    <!-- Optical Apex Focal Node (8K Neural Calibration Spark) -->
+    <circle cx="212" cy="68" r="4.5" fill="#ffffff"/>
+    <circle cx="212" cy="68" r="9" fill="#00f2fe" opacity="0.6"/>
+  </g>
+</svg>
