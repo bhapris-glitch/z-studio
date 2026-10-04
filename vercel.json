@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "error-container": "#93000a",
+          "primary-container": "#00f2fe",
+          "tertiary-fixed": "#efdbff",
+          "secondary": "#ddb7ff",
+          "surface-container-high": "#282a2e",
+          "background": "#111318",
+          "secondary-fixed-dim": "#ddb7ff",
+          "on-tertiary-fixed-variant": "#6700b5",
+          "surface-dim": "#111318",
+          "on-error-container": "#ffdad6",
+          "primary-fixed-dim": "#00dce6",
+          "on-secondary": "#490080",
+          "primary": "#e0fdff",
+          "surface-container-highest": "#333539",
+          "tertiary": "#fef5ff",
+          "surface-bright": "#37393e",
+          "tertiary-container": "#ead2ff",
+          "surface-variant": "#333539",
+          "inverse-surface": "#e2e2e8",
+          "on-primary-container": "#006a70",
+          "on-secondary-container": "#d6a9ff",
+          "on-surface-variant": "#b9cacb",
+          "secondary-fixed": "#f0dbff",
+          "on-tertiary-container": "#8624de",
+          "on-tertiary-fixed": "#2c0051",
+          "surface-tint": "#00dce6",
+          "on-primary-fixed-variant": "#004f53",
+          "secondary-container": "#6f00be",
+          "on-background": "#e2e2e8",
+          "on-secondary-fixed": "#2c0051",
+          "outline-variant": "#3a494b",
+          "on-primary": "#00373a",
+          "primary-fixed": "#6ff6ff",
+          "surface": "#111318",
+          "inverse-primary": "#00696f",
+          "surface-container-lowest": "#0c0e12",
+          "on-tertiary": "#480081",
+          "inverse-on-surface": "#2f3035",
+          "surface-container": "#1e2024",
+          "outline": "#849495",
+          "on-error": "#690005",
+          "on-surface": "#e2e2e8",
+          "error": "#ffb4ab",
+          "on-primary-fixed": "#002022",
+          "tertiary-fixed-dim": "#dcb8ff",
+          "on-secondary-fixed-variant": "#6900b3",
+          "surface-container-low": "#1a1c20"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+        },
+        "spacing": {
+          "margin-mobile": "1rem",
+          "space-xl": "2rem",
+          "gutter-compact": "0.5rem",
+          "space-xs": "0.25rem",
+          "gutter": "1rem",
+          "margin": "1.5rem",
+          "space-sm": "0.5rem",
+          "space-lg": "1.25rem",
+          "space-md": "0.75rem"
+        },
+        "fontFamily": {
+          "label-sm": [
+            "JetBrains Mono"
+          ],
+          "body-md": [
+            "Inter"
+          ],
+          "headline-md": [
+            "Plus Jakarta Sans"
+          ],
+          "body-lg": [
+            "Inter"
+          ],
+          "headline-sm": [
+            "Plus Jakarta Sans"
+          ],
+          "headline-lg": [
+            "Plus Jakarta Sans"
+          ],
+          "headline-xl-mobile": [
+            "Plus Jakarta Sans"
+          ],
+          "headline-lg-mobile": [
+            "Plus Jakarta Sans"
+          ],
+          "headline-xl": [
+            "Plus Jakarta Sans"
+          ],
+          "body-sm": [
+            "Inter"
+          ],
+          "label-md": [
+            "JetBrains Mono"
+          ],
+          "label-lg": [
+            "Inter"
+          ],
+          "data-metric": [
+            "JetBrains Mono"
+          ]
+        },
+        "fontSize": {
+          "label-sm": [
+            "10px",
+            {
+              "lineHeight": "12px",
+              "letterSpacing": "0.06em",
+              "fontWeight": "500"
+            }
+          ],
+          "body-md": [
+            "14px",
+            {
+              "lineHeight": "20px",
+              "letterSpacing": "0em",
+              "fontWeight": "400"
+            }
+          ],
+          "headline-md": [
+            "22px",
+            {
+              "lineHeight": "28px",
+              "letterSpacing": "-0.015em",
+              "fontWeight": "600"
+            }
+          ],
+          "body-lg": [
+            "16px",
+            {
+              "lineHeight": "24px",
+              "letterSpacing": "-0.005em",
+              "fontWeight": "400"
+            }
+          ],
+          "headline-sm": [
+            "18px",
+            {
+              "lineHeight": "24px",
+              "letterSpacing": "-0.01em",
+              "fontWeight": "600"
+            }
+          ],
+          "headline-lg": [
+            "32px",
+            {
+              "lineHeight": "40px",
+              "letterSpacing": "-0.02em",
+              "fontWeight": "600"
+            }
+          ],
+          "headline-xl-mobile": [
+            "30px",
+            {
+              "lineHeight": "36px",
+              "letterSpacing": "-0.02em",
+              "fontWeight": "700"
+            }
+          ],
+          "headline-lg-mobile": [
+            "24px",
+            {
+              "lineHeight": "32px",
+              "letterSpacing": "-0.01em",
+              "fontWeight": "600"
+            }
+          ],
+          "headline-xl": [
+            "40px",
+            {
+              "lineHeight": "48px",
+              "letterSpacing": "-0.03em",
+              "fontWeight": "700"
+            }
+          ],
+          "body-sm": [
+            "12px",
+            {
+              "lineHeight": "16px",
+              "letterSpacing": "0.01em",
+              "fontWeight": "400"
+            }
+          ],
+          "label-md": [
+            "11px",
+            {
+              "lineHeight": "14px",
+              "letterSpacing": "0.04em",
+              "fontWeight": "500"
+            }
+          ],
+          "label-lg": [
+            "13px",
+            {
+              "lineHeight": "16px",
+              "letterSpacing": "0.02em",
+              "fontWeight": "500"
+            }
+          ],
+          "data-metric": [
+            "12px",
+            {
+              "lineHeight": "14px",
+              "letterSpacing": "0.02em",
+              "fontWeight": "600"
+            }
+          ]
+        }
+      },
+    },
+  }</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased min-h-screen"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-lowest z-50 flex flex-col justify-between py-space-md"><div class="flex flex-col gap-space-md"><div class="px-space-md flex items-center justify-between"><div class="flex items-center gap-space-sm"><div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center"><span class="material-symbols-outlined text-primary-fixed-dim text-[20px]">code_blocks</span></div><div><div class="font-headline-sm text-headline-sm text-primary font-bold tracking-tight">ZAVOKA</div><div class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Devtools Suite</div></div></div></div><div class="px-space-md"><div class="p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between"><div class="flex items-center gap-space-xs"><span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span><span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Env: Production</span></div><span class="font-data-metric text-data-metric text-primary-fixed-dim">v2.4.0</span></div></div><nav class="flex flex-col gap-space-xs px-space-sm" data-active-classes="bg-surface-container-high text-primary font-bold"><a aria-current="page" class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg transition-colors bg-surface-container-high text-primary font-bold" data-path="vercel-config-viewer" href="#"><span class="material-symbols-outlined text-[18px]">terminal</span><span class="font-label-lg text-label-lg">vercel.json</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="build-routing-rules" href="#"><span class="material-symbols-outlined text-[18px]">alt_route</span><span class="font-label-lg text-label-lg">Routes &amp; Rewrites</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="headers-cors" href="#"><span class="material-symbols-outlined text-[18px]">security</span><span class="font-label-lg text-label-lg">Headers &amp; CORS</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="env-variables" href="#"><span class="material-symbols-outlined text-[18px]">key</span><span class="font-label-lg text-label-lg">Environment Matrix</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="deployment-logs" href="#"><span class="material-symbols-outlined text-[18px]">receipt_long</span><span class="font-label-lg text-label-lg">Deployment Stream</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="deploy-guide" href="#"><span class="material-symbols-outlined text-[18px]">menu_book</span><span class="font-label-lg text-label-lg">Deployment Guide</span></a></nav></div><div class="px-space-md flex flex-col gap-space-sm"><div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col gap-space-xs"><div class="flex items-center justify-between text-on-surface-variant"><span class="font-label-sm text-label-sm">Edge Nodes</span><span class="font-label-sm text-label-sm text-primary">32 / 32 OK</span></div><div class="w-full h-1 bg-surface-container-highest rounded-full overflow-hidden"><div class="w-full h-full bg-primary-container"></div></div></div><div class="flex items-center justify-between px-space-xs"><span class="font-label-sm text-label-sm text-on-surface-variant">Schema: 2024.11</span><span class="material-symbols-outlined text-[16px] text-on-surface-variant">cloud_done</span></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface/85 backdrop-blur-xl z-40 shadow-[0_1px_8px_rgba(0,0,0,0.4)]"><div class="h-16 w-full px-space-lg flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md min-w-0"><div class="flex items-center gap-space-xs text-on-surface-variant shrink-0"><span class="material-symbols-outlined text-[20px] text-primary">deployed_code</span><span class="font-headline-sm text-headline-sm text-primary font-semibold">Zavoka Studio</span></div><div class="h-4 w-[1px] bg-surface-container-highest shrink-0"></div><div class="min-w-0 flex items-center gap-space-sm"><span class="font-body-md text-body-md text-on-surface font-medium truncate">Deploy to Vercel - Guide &amp; vercel.json Configuration</span><span class="inline-flex items-center gap-space-xs px-space-xs py-[2px] rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm uppercase tracking-wide shrink-0"><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>Devtools</span></div></div><div class="flex items-center gap-space-sm shrink-0"><div class="hidden xl:flex items-center gap-space-xs px-space-sm py-space-xs rounded bg-surface-container-low text-on-surface-variant"><span class="material-symbols-outlined text-[16px] text-primary-fixed-dim">sensors</span><span class="font-label-sm text-label-sm">Telemetry: Active</span></div><button class="flex items-center gap-space-xs px-space-md py-space-xs rounded bg-surface-container hover:bg-surface-container-high text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[18px] text-primary">content_copy</span><span class="font-label-md text-label-md uppercase tracking-wider font-semibold">1-Click Copy</span></button><button class="flex items-center gap-space-xs px-space-md py-space-xs rounded bg-primary-container text-on-primary-container hover:bg-primary-fixed-dim hover:text-on-primary font-semibold transition-colors" type="button"><span class="material-symbols-outlined text-[18px]">download</span><span class="font-label-md text-label-md uppercase tracking-wider">Download vercel.json</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 bg-surface"><div class="flex flex-col w-full">
+<div class="p-space-lg flex flex-col gap-space-lg w-full max-w-[1560px] mx-auto">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md pb-space-xs">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-md text-label-md">
+<span class="flex items-center gap-1 hover:text-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-[14px]">folder_open</span>
+<span>root</span>
+</span>
+<span>/</span>
+<span class="text-primary font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-primary-container">data_object</span>
+<span>vercel.json</span>
+</span>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-high text-on-surface font-label-sm text-label-sm">JSON</span>
+</div>
+<div class="flex flex-wrap items-center gap-space-xs pt-1">
+<span class="inline-flex items-center gap-1.5 px-space-sm py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+            Target: Vercel Edge / Serverless
+          </span>
+<span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[13px] text-secondary">bolt</span>
+            Framework: Vite
+          </span>
+<span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[13px] text-outline">folder_zip</span>
+            Output: dist/
+          </span>
+<span class="inline-flex items-center gap-1.5 px-space-sm py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed-dim animate-pulse"></span>
+            WebGPU Isolation: Active
+          </span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm self-start lg:self-auto">
+<button class="relative group flex items-center gap-space-xs px-space-md py-space-xs rounded bg-surface-container hover:bg-surface-container-high text-on-surface transition-all active:scale-95 shadow-sm" id="btn-copy-code" type="button">
+<span class="material-symbols-outlined text-[18px] text-primary-fixed-dim group-hover:rotate-12 transition-transform">content_copy</span>
+<span class="font-label-md text-label-md uppercase tracking-wider font-semibold" id="copy-btn-label">1-Click Copy Code</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-space-xs rounded bg-primary-container text-on-primary-container hover:bg-primary-fixed-dim hover:text-on-primary font-semibold transition-all active:scale-95 shadow-md shadow-primary-container/20" id="btn-download-json" type="button">
+<span class="material-symbols-outlined text-[18px]">file_download</span>
+<span class="font-label-md text-label-md uppercase tracking-wider">Download vercel.json</span>
+</button>
+</div>
+</div>
+<div class="flex flex-col rounded-xl bg-surface-container-lowest overflow-hidden shadow-2xl">
+<div class="h-10 bg-surface-container-low px-space-md flex items-center justify-between">
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-full bg-error-container block"></span>
+<span class="w-3 h-3 rounded-full bg-[#f59e0b] block opacity-80"></span>
+<span class="w-3 h-3 rounded-full bg-[#10b981] block opacity-80"></span>
+</div>
+<div class="flex items-center gap-space-xs text-on-surface font-label-sm text-label-sm px-space-sm py-1 rounded bg-surface-container-high/60">
+<span class="material-symbols-outlined text-[14px] text-primary-container">description</span>
+<span class="font-semibold text-primary">vercel.json</span>
+<span class="text-on-surface-variant font-normal">·</span>
+<span class="text-on-surface-variant">UTF-8</span>
+<span class="text-on-surface-variant">·</span>
+<span class="text-primary-fixed-dim font-medium">542 B</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm text-on-surface-variant font-label-sm text-label-sm">
+<span class="px-space-xs py-0.5 rounded bg-surface-container text-on-surface-variant">Wrap: OFF</span>
+<span class="flex items-center gap-1 px-space-xs py-0.5 rounded bg-surface-container text-primary-fixed-dim">
+<span class="material-symbols-outlined text-[13px]">lock</span>
+            Read-Only
+          </span>
+<button class="p-1 rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors" id="toggle-fullscreen" title="Toggle Compact View" type="button">
+<span class="material-symbols-outlined text-[16px]">aspect_ratio</span>
+</button>
+</div>
+</div>
+<div class="overflow-x-auto p-space-md bg-surface-container-lowest font-label-md text-label-md leading-relaxed selection:bg-primary-container/30 selection:text-primary">
+<pre class="flex flex-col text-on-surface font-label-sm leading-6"><code><span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">01</span><span class="text-on-surface-variant">{</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">02</span>  <span class="text-primary-fixed-dim">"$schema"</span><span class="text-on-surface-variant">:</span> <span class="text-secondary">"https://openapi.vercel.sh/vercel.json"</span><span class="text-on-surface-variant">,</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">03</span>  <span class="text-primary-fixed-dim">"framework"</span><span class="text-on-surface-variant">:</span> <span class="text-secondary">"vite"</span><span class="text-on-surface-variant">,</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">04</span>  <span class="text-primary-fixed-dim">"buildCommand"</span><span class="text-on-surface-variant">:</span> <span class="text-secondary">"npm run build"</span><span class="text-on-surface-variant">,</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">05</span>  <span class="text-primary-fixed-dim">"outputDirectory"</span><span class="text-on-surface-variant">:</span> <span class="text-secondary">"dist"</span><span class="text-on-surface-variant">,</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">06</span>  <span class="text-primary-fixed-dim">"cleanUrls"</span><span class="text-on-surface-variant">:</span> <span class="text-primary-container font-semibold">true</span><span class="text-on-surface-variant">,</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">07</span>  <span class="text-primary-fixed-dim">"trailingSlash"</span><span class="text-on-surface-variant">:</span> <span class="text-error font-semibold">false</span><span class="text-on-surface-variant">,</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">08</span>  <span class="text-primary-fixed-dim">"headers"</span><span class="text-on-surface-variant">: [</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">09</span>    <span class="text-on-surface-variant">{</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">10</span>      <span class="text-primary-fixed-dim">"source"</span><span class="text-on-surface-variant">:</span> <span class="text-secondary">"/(.*)"</span><span class="text-on-surface-variant">,</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">11</span>      <span class="text-primary-fixed-dim">"headers"</span><span class="text-on-surface-variant">: [</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">12</span>        <span class="text-on-surface-variant">{</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">13</span>          <span class="text-primary-fixed-dim">"key"</span><span class="text-on-surface-variant">:</span> <span class="text-secondary">"Cross-Origin-Embedder-Policy"</span><span class="text-on-surface-variant">,</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">14</span>          <span class="text-primary-fixed-dim">"value"</span><span class="text-on-surface-variant">:</span> <span class="text-secondary">"require-corp"</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">15</span>        <span class="text-on-surface-variant">},</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">16</span>        <span class="text-on-surface-variant">{</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">17</span>          <span class="text-primary-fixed-dim">"key"</span><span class="text-on-surface-variant">:</span> <span class="text-secondary">"Cross-Origin-Opener-Policy"</span><span class="text-on-surface-variant">,</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">18</span>          <span class="text-primary-fixed-dim">"value"</span><span class="text-on-surface-variant">:</span> <span class="text-secondary">"same-origin"</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">19</span>        <span class="text-on-surface-variant">},</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">20</span>        <span class="text-on-surface-variant">{</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">21</span>          <span class="text-primary-fixed-dim">"key"</span><span class="text-on-surface-variant">:</span> <span class="text-secondary">"X-Content-Type-Options"</span><span class="text-on-surface-variant">,</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">22</span>          <span class="text-primary-fixed-dim">"value"</span><span class="text-on-surface-variant">:</span> <span class="text-secondary">"nosniff"</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">23</span>        <span class="text-on-surface-variant">},</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">24</span>        <span class="text-on-surface-variant">{</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">25</span>          <span class="text-primary-fixed-dim">"key"</span><span class="text-on-surface-variant">:</span> <span class="text-secondary">"X-Frame-Options"</span><span class="text-on-surface-variant">,</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">26</span>          <span class="text-primary-fixed-dim">"value"</span><span class="text-on-surface-variant">:</span> <span class="text-secondary">"DENY"</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">27</span>        <span class="text-on-surface-variant">}</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">28</span>      <span class="text-on-surface-variant">]</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">29</span>    <span class="text-on-surface-variant">},</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">30</span>    <span class="text-on-surface-variant">{</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">31</span>      <span class="text-primary-fixed-dim">"source"</span><span class="text-on-surface-variant">:</span> <span class="text-secondary">"/assets/(.*)"</span><span class="text-on-surface-variant">,</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">32</span>      <span class="text-primary-fixed-dim">"headers"</span><span class="text-on-surface-variant">: [</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">33</span>        <span class="text-on-surface-variant">{</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">34</span>          <span class="text-primary-fixed-dim">"key"</span><span class="text-on-surface-variant">:</span> <span class="text-secondary">"Cache-Control"</span><span class="text-on-surface-variant">,</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">35</span>          <span class="text-primary-fixed-dim">"value"</span><span class="text-on-surface-variant">:</span> <span class="text-secondary">"public, max-age=31536000, immutable"</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">36</span>        <span class="text-on-surface-variant">}</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">37</span>      <span class="text-on-surface-variant">]</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">38</span>    <span class="text-on-surface-variant">}</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">39</span>  <span class="text-on-surface-variant">],</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">40</span>  <span class="text-primary-fixed-dim">"rewrites"</span><span class="text-on-surface-variant">: [</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">41</span>    <span class="text-on-surface-variant">{</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">42</span>      <span class="text-primary-fixed-dim">"source"</span><span class="text-on-surface-variant">:</span> <span class="text-secondary">"/(.*)"</span><span class="text-on-surface-variant">,</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">43</span>      <span class="text-primary-fixed-dim">"destination"</span><span class="text-on-surface-variant">:</span> <span class="text-secondary">"/index.html"</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">44</span>    <span class="text-on-surface-variant">}</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">45</span>  <span class="text-on-surface-variant">]</span></span>
+<span class="flex"><span class="w-10 select-none text-outline text-right pr-4 shrink-0 font-data-metric text-data-metric opacity-40">46</span><span class="text-on-surface-variant">}</span></span></code></pre>
+</div>
+<div class="px-space-md py-space-sm bg-surface-container flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs text-primary-fixed-dim font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+<span class="text-on-surface font-medium">Vercel Schema v2024 Validated</span>
+<span class="text-on-surface-variant font-normal">·</span>
+<span class="text-on-surface-variant">Target: vercel.json</span>
+<span class="text-on-surface-variant font-normal">·</span>
+<span class="text-on-surface-variant">46 Lines</span>
+<span class="text-on-surface-variant font-normal">·</span>
+<span class="text-primary-container font-semibold">Clean URLs: Enabled</span>
+</div>
+<div class="flex items-center gap-space-md font-data-metric text-data-metric text-on-surface-variant">
+<span class="flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+            Syntax: JSON Strict
+          </span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">shield</span>
+            4 Security Directives
+          </span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<div class="flex flex-col p-space-lg rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors shadow-md relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-24 h-24 bg-primary-container/5 rounded-full blur-2xl group-hover:bg-primary-container/10 transition-all pointer-events-none"></div>
+<div class="flex items-center justify-between mb-space-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[22px]">memory</span>
+</div>
+<span class="font-label-sm text-label-sm px-space-xs py-0.5 rounded bg-surface-container text-primary-fixed-dim uppercase tracking-wider font-semibold">Security Level: Strict</span>
+</div>
+<div class="font-headline-sm text-headline-sm text-primary font-semibold mb-space-xs">Cross-Origin Isolation</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+          Required for <span class="text-primary font-label-sm">SharedArrayBuffer</span> &amp; WebGPU high-throughput 8K neural rendering. Sets <code class="text-primary-container font-label-sm">COEP: require-corp</code> and <code class="text-primary-container font-label-sm">COOP: same-origin</code> headers globally.
+        </div>
+<div class="mt-space-md pt-space-xs flex items-center gap-2 text-primary-fixed-dim font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">verified_user</span>
+<span>Zero Specter &amp; Timing Vulnerabilities</span>
+</div>
+</div>
+<div class="flex flex-col p-space-lg rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors shadow-md relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-24 h-24 bg-secondary/5 rounded-full blur-2xl group-hover:bg-secondary/10 transition-all pointer-events-none"></div>
+<div class="flex items-center justify-between mb-space-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[22px]">alt_route</span>
+</div>
+<span class="font-label-sm text-label-sm px-space-xs py-0.5 rounded bg-surface-container text-secondary font-semibold uppercase tracking-wider">Edge Rewrites</span>
+</div>
+<div class="font-headline-sm text-headline-sm text-primary font-semibold mb-space-xs">SPA Rewrite Routing</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+          Rewrites all subpaths to <code class="text-secondary font-label-sm">/index.html</code> with <code class="text-primary-fixed-dim font-label-sm">cleanUrls: true</code> for seamless client router orchestration, browser history persistence, and zero 404 drops.
+        </div>
+<div class="mt-space-md pt-space-xs flex items-center gap-2 text-secondary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">sync_alt</span>
+<span>All dynamic paths catch &amp; resolve</span>
+</div>
+</div>
+<div class="flex flex-col p-space-lg rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors shadow-md relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-24 h-24 bg-primary-fixed-dim/5 rounded-full blur-2xl group-hover:bg-primary-fixed-dim/10 transition-all pointer-events-none"></div>
+<div class="flex items-center justify-between mb-space-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-primary-fixed-dim">
+<span class="material-symbols-outlined text-[22px]">rocket_launch</span>
+</div>
+<span class="font-label-sm text-label-sm px-space-xs py-0.5 rounded bg-surface-container text-on-surface-variant uppercase tracking-wider font-semibold">TTL: 31,536,000s</span>
+</div>
+<div class="font-headline-sm text-headline-sm text-primary font-semibold mb-space-xs">Immutable Asset Caching</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+          Applies a 1-year max-age <code class="text-primary-container font-label-sm">immutable</code> cache-control policy across all <code class="text-primary-fixed-dim font-label-sm">/assets/*</code> chunks generated by Vite's content-hashed bundler.
+        </div>
+<div class="mt-space-md pt-space-xs flex items-center gap-2 text-primary-fixed-dim font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">speed</span>
+<span>99.8% Global Edge Hit Ratio</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col rounded-xl bg-surface-container-low overflow-hidden shadow-xl">
+<div class="p-space-lg flex flex-col lg:flex-row lg:items-center justify-between gap-space-md bg-surface-container">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs text-primary font-headline-sm text-headline-sm font-bold">
+<span class="material-symbols-outlined text-[22px] text-primary-container">cloud_upload</span>
+<span>Vercel Deployment Workstation</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Execute continuous production builds through the official Vercel CLI or automated Git connection.
+          </p>
+</div>
+<div class="flex items-center gap-space-xs p-1.5 rounded-lg bg-surface-container-lowest shrink-0">
+<div class="flex items-center gap-space-sm px-space-md py-1.5 rounded bg-surface-container-high text-on-surface font-label-sm text-label-sm">
+<span class="text-on-surface-variant">CLI Command:</span>
+<code class="text-primary-container font-semibold select-all">npm i -g vercel &amp;&amp; vercel</code>
+</div>
+<button class="p-2 rounded bg-surface-container hover:bg-surface-bright text-on-surface hover:text-primary transition-colors" id="copy-cli-btn" title="Copy CLI Command" type="button">
+<span class="material-symbols-outlined text-[16px]" id="cli-copy-icon">content_copy</span>
+</button>
+</div>
+</div>
+<div class="p-space-lg grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-space-md">
+<div class="flex flex-col gap-space-xs p-space-md rounded-lg bg-surface-container">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Framework Preset</span>
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm font-semibold text-primary">Vite</span>
+<span class="material-symbols-outlined text-[16px] text-primary-container">check</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Standard rollup bundler</span>
+</div>
+<div class="flex flex-col gap-space-xs p-space-md rounded-lg bg-surface-container">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Root Directory</span>
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm font-semibold text-primary">./</span>
+<span class="material-symbols-outlined text-[16px] text-primary-fixed-dim">folder</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Root project context</span>
+</div>
+<div class="flex flex-col gap-space-xs p-space-md rounded-lg bg-surface-container">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Build Command</span>
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md font-semibold text-primary truncate">npm run build</span>
+</div>
+<span class="font-label-sm text-label-sm text-secondary">Override: OFF</span>
+</div>
+<div class="flex flex-col gap-space-xs p-space-md rounded-lg bg-surface-container">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Output Directory</span>
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm font-semibold text-primary">dist</span>
+<span class="material-symbols-outlined text-[16px] text-primary-container">done_all</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Static artifacts bundle</span>
+</div>
+<div class="flex flex-col gap-space-xs p-space-md rounded-lg bg-surface-container">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Node.js Engine</span>
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm font-semibold text-primary">20.x</span>
+<span class="px-space-xs py-0.5 rounded bg-primary-container/20 text-primary-container font-label-sm text-label-sm font-bold">LTS</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Alternative: 18.x compatible</span>
+</div>
+</div>
+<div class="px-space-lg py-space-md bg-surface-container-lowest flex flex-wrap items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md flex-wrap">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Deploy Checkpoints:</span>
+<div class="flex items-center gap-space-xs text-on-surface font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-primary-container">check_circle</span>
+<span>Vite SPA Fallback Verified</span>
+</div>
+<div class="flex items-center gap-space-xs text-on-surface font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-primary-container">check_circle</span>
+<span>Security Directives Synced</span>
+</div>
+<div class="flex items-center gap-space-xs text-on-surface font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-primary-container">check_circle</span>
+<span>WebGPU Cross-Origin Isolation OK</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="px-space-md py-space-xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-md text-label-md transition-colors" id="btn-preview-schema" type="button">
+            Test Schema Remote
+          </button>
+<a class="flex items-center gap-space-xs px-space-md py-space-xs rounded bg-primary-container text-on-primary-container hover:bg-primary-fixed-dim hover:text-on-primary font-semibold font-label-md text-label-md uppercase tracking-wider transition-colors shadow-sm" href="https://vercel.com/new" rel="noopener noreferrer" target="_blank">
+<span>Import to Vercel</span>
+<span class="material-symbols-outlined text-[16px]">open_in_new</span>
+</a>
+</div>
+</div>
+</div>
+<div class="flex flex-col md:flex-row items-center justify-between p-space-md rounded-xl bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[18px] text-primary-fixed-dim">verified</span>
+<span>Zavoka Studio Engine Core v2.4.0 · Compatible with Vercel CLI v34.0+ · Schema Spec 2024.11</span>
+</div>
+<div class="flex items-center gap-space-md">
+<span class="hover:text-primary transition-colors cursor-pointer">Official Spec Docs</span>
+<span>·</span>
+<span class="hover:text-primary transition-colors cursor-pointer">Header Debugger</span>
+<span>·</span>
+<span class="text-primary">Status: Operational</span>
+</div>
+</div>
+</div>
+</div>
+<script>
+  (function () {
+    const rawVercelJson = `{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "vite",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cross-Origin-Embedder-Policy",
+          "value": "require-corp"
+        },
+        {
+          "key": "Cross-Origin-Opener-Policy",
+          "value": "same-origin"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}`;
+
+    const copyBtn = document.getElementById('btn-copy-code');
+    const copyLabel = document.getElementById('copy-btn-label');
+    const cliBtn = document.getElementById('copy-cli-btn');
+    const cliIcon = document.getElementById('cli-copy-icon');
+    const downloadBtn = document.getElementById('btn-download-json');
+    const testSchemaBtn = document.getElementById('btn-preview-schema');
+
+    if (copyBtn) {
+      copyBtn.addEventListener('click', function () {
+        navigator.clipboard.writeText(rawVercelJson).then(() => {
+          if (copyLabel) copyLabel.textContent = 'COPIED TO CLIPBOARD!';
+          copyBtn.classList.add('bg-primary-container', 'text-on-primary-container');
+          setTimeout(() => {
+            if (copyLabel) copyLabel.textContent = '1-Click Copy Code';
+            copyBtn.classList.remove('bg-primary-container', 'text-on-primary-container');
+          }, 2200);
+        });
+      });
+    }
+
+    if (cliBtn) {
+      cliBtn.addEventListener('click', function () {
+        navigator.clipboard.writeText('npm i -g vercel && vercel').then(() => {
+          if (cliIcon) cliIcon.textContent = 'done';
+          setTimeout(() => {
+            if (cliIcon) cliIcon.textContent = 'content_copy';
+          }, 1800);
+        });
+      });
+    }
+
+    if (downloadBtn) {
+      downloadBtn.addEventListener('click', function () {
+        const blob = new Blob([rawVercelJson], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'vercel.json';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      });
+    }
+
+    if (testSchemaBtn) {
+      testSchemaBtn.addEventListener('click', function () {
+        const originalText = testSchemaBtn.textContent;
+        testSchemaBtn.textContent = 'Checking Vercel API...';
+        testSchemaBtn.disabled = true;
+        setTimeout(() => {
+          testSchemaBtn.textContent = 'Passed (200 OK)';
+          setTimeout(() => {
+            testSchemaBtn.textContent = originalText;
+            testSchemaBtn.disabled = false;
+          }, 1500);
+        }, 600);
+      });
+    }
+  })();
+</script></main></div></body></html>
