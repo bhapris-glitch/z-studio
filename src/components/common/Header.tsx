@@ -5,7 +5,7 @@
  */
 import React from 'react';
 import { UserProfile, ActiveTabId } from '../../types';
-import { Zap, UploadCloud } from 'lucide-react';
+import { UploadCloud } from 'lucide-react';
 
 interface HeaderProps {
   userProfile: UserProfile;
