@@ -4,8 +4,12 @@
  * Architecture: WebGPU / Neural Segmentation Shader Rig v3.4
  */
 import React, { useState } from 'react';
-import { ProductStagingProps } from '../../types';
 import { Sliders, Sun, Download, Wand2, Eye } from 'lucide-react';
+
+export interface ProductStagingProps {
+  sourceAssetUrl: string;
+  onNavigateToExport: () => void;
+}
 
 export const ProductStaging: React.FC<ProductStagingProps> = ({
   sourceAssetUrl,
