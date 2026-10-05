@@ -10,10 +10,8 @@
  * - Live notification pill orchestration ("Loaded & validated...")
  * - Persistent footer status bar with WebGPU / CoreML performance telemetry
  */
-
 import React, { useState, useEffect } from 'react';
 
-// Global Types
 import {
   ActiveTabId,
   UploadedAssetInfo,
@@ -21,7 +19,6 @@ import {
   EngineStatus,
 } from './types';
 
-// Core Layout & Feature Components
 import Header from './components/common/Header';
 import NavigationTabs from './components/common/NavigationTabs';
 import UploadModal from './components/upload/UploadModal';
@@ -29,20 +26,13 @@ import SuperHdEditor from './components/editor/SuperHdEditor';
 import ProductStaging from './components/staging/ProductStaging';
 import ExportLab from './components/export/ExportLab';
 
-// Default Initial Asset Previews
 const DEFAULT_PREVIEW_RAW = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1600&auto=format&fit=crop';
 const DEFAULT_PRODUCT_STAGING_IMG = 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1600&auto=format&fit=crop';
 
 export const App: React.FC = () => {
-  // --------------------------------------------------------------------------
-  // 1. Navigation & Workspace State
-  // --------------------------------------------------------------------------
   const [activeTab, setActiveTab] = useState<ActiveTabId>('enhance');
   const [isUploadModalOpen, setIsUploadModalOpen] = useState<boolean>(false);
 
-  // --------------------------------------------------------------------------
-  // 2. Active Working Asset Info
-  // --------------------------------------------------------------------------
   const [activeAsset, setActiveAsset] = useState<UploadedAssetInfo>({
     id: 'asset_init_8k',
     fileName: 'Live_Captured_Asset_8K.raw',
@@ -58,14 +48,10 @@ export const App: React.FC = () => {
     status: 'validated',
   });
 
-  // --------------------------------------------------------------------------
-  // 3. Ingestion Notification Toast State
-  // --------------------------------------------------------------------------
   const [notificationText, setNotificationText] = useState<string | null>(
     'Loaded & validated Live_Captured_Asset_8K.raw'
   );
 
-  // Auto-dismiss notification chip after 6 seconds
   useEffect(() => {
     if (notificationText) {
       const timer = setTimeout(() => {
@@ -75,9 +61,6 @@ export const App: React.FC = () => {
     }
   }, [notificationText]);
 
-  // --------------------------------------------------------------------------
-  // 4. User Profile & Engine Telemetry
-  // --------------------------------------------------------------------------
   const userProfile: UserProfile = {
     id: 'user_zavoka_pro',
     name: 'Elena Rostova',
@@ -94,9 +77,6 @@ export const App: React.FC = () => {
     latencyMs: 28,
   };
 
-  // --------------------------------------------------------------------------
-  // 5. Asset Upload Completion Handler
-  // --------------------------------------------------------------------------
   const handleAssetLoaded = (newAsset: UploadedAssetInfo) => {
     setActiveAsset(newAsset);
     setNotificationText(`Loaded & validated ${newAsset.fileName}`);
@@ -104,22 +84,18 @@ export const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#090a0d] text-white flex flex-col font-sans selection:bg-[#00f2fe]/30">
-      
-      {/* Global Fixed Top Navigation Header */}
       <Header
         userProfile={userProfile}
         onOpenUploadModal={() => setIsUploadModalOpen(true)}
       />
 
-      {/* Workspace Navigation Tabs with Live Badges */}
       <NavigationTabs
         activeTab={activeTab}
-        onTabChange={(tabId) => setActiveTab(tabId)}
+        onTabChange={(tabId: ActiveTabId) => setActiveTab(tabId)}
       />
 
-      {/* Live Validation Floating Banner Toast */}
       {notificationText && (
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 pt-3 animate-fade-in">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 pt-3">
           <div className="px-4 py-2.5 rounded-2xl bg-[#00f2fe]/10 border border-[#00f2fe]/30 flex items-center justify-between shadow-[0_0_20px_rgba(0,242,254,0.15)] backdrop-blur-md">
             <div className="flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-[#00f2fe]">
               <svg className="w-4 h-4 text-[#00f2fe] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -149,7 +125,6 @@ export const App: React.FC = () => {
         </div>
       )}
 
-      {/* Active Workspace Screen Presentation */}
       <main className="flex-1 flex flex-col justify-start">
         {activeTab === 'enhance' && (
           <SuperHdEditor
@@ -177,14 +152,12 @@ export const App: React.FC = () => {
         )}
       </main>
 
-      {/* Interactive RAW / JPG File Ingestion Modal */}
       <UploadModal
         isOpen={isUploadModalOpen}
         onClose={() => setIsUploadModalOpen(false)}
         onAssetLoaded={handleAssetLoaded}
       />
 
-      {/* Global Telemetry & System Status Footer Bar */}
       <footer className="bg-[#0b0d11] border-t border-white/[0.08] px-4 sm:px-8 py-3 text-xs font-mono text-slate-400 flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-3 sm:gap-6">
           <div className="flex items-center gap-2">
@@ -197,11 +170,10 @@ export const App: React.FC = () => {
         </div>
 
         <div className="flex items-center gap-4 text-[11px]">
-          <span>Device Color Space: <strong className="text-white">{activeAsset.colorGamut}</strong></span>
+          <span>Device Color Space: <strong className="text-white">{activeAsset.colorGamut || 'Rec.2020'}</strong></span>
           <span>© 2026 Zavoka Neural Systems</span>
         </div>
       </footer>
-
     </div>
   );
 };
