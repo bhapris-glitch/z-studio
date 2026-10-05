@@ -24,12 +24,9 @@ export const UploadModal: React.FC<UploadModalProps> = ({
   onClose,
   onAssetLoaded,
 }) => {
-  const [isProcessing, setIsProcessing] = useState<boolean>(false);
-
   if (!isOpen) return null;
 
   const handleTestLoad = (format: 'RAW' | 'JPG') => {
-    setIsProcessing(true);
     setTimeout(() => {
       onAssetLoaded({
         id: `asset_${Date.now()}`,
@@ -47,11 +44,9 @@ export const UploadModal: React.FC<UploadModalProps> = ({
         colorGamut: 'Rec.2020',
         status: 'validated',
       });
-      setIsProcessing(false);
       onClose();
     }, 500);
   };
-
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
       <div className="relative w-full max-w-lg bg-[#0e1118] border border-white/[0.12] rounded-3xl p-6 shadow-2xl flex flex-col gap-5">
