@@ -33,6 +33,8 @@ export const ExportLab: React.FC<ExportLabProps> = ({
   const [includeExif, setIncludeExif] = useState<boolean>(true);
   const [stripGps, setStripGps] = useState<boolean>(false);
   const [watermarkEnabled, setWatermarkEnabled] = useState<boolean>(false);
+  const [watermarkPos] = useState<string>('bottom-right');
+  const [watermarkOpacity] = useState<number>(65);
   const [isDownloading, setIsDownloading] = useState<boolean>(false);
   const formats = ['TIFF', 'PNG (16-bit)', 'JPEG XL', 'AVIF', 'ProRes RAW'];
 
@@ -47,7 +49,6 @@ export const ExportLab: React.FC<ExportLabProps> = ({
       document.body.removeChild(link);
       setIsDownloading(false);
     }, 1200);
-    return () => clearTimeout(timer);
   };
 
   return (
