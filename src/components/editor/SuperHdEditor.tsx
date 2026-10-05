@@ -10,7 +10,7 @@
  * - Denoise, Sharpness, Micro-Texture, and HDR dynamic range tuning sliders
  */
 import React, { useState } from 'react';
-import { Sliders, Sparkles, Download, Layers } from 'lucide-react';
+import { Sparkles, Download, } from 'lucide-react';
 
 interface SuperHdEditorProps {
   sourceImageUrl: string;
