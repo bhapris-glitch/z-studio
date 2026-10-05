@@ -9,7 +9,7 @@
  * - Fallback standard file picker dialog & instant preset test asset loader
  * - Animated "Loaded & validated Live_Captured_Asset_8K.raw" notification chip
  */
-import React, { useState } from 'react';
+import React from 'react';
 import { UploadedAssetInfo } from '../../types';
 import { UploadCloud, X, CheckCircle2, Image as ImageIcon } from 'lucide-react';
 
