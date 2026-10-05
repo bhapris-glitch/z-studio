@@ -12,7 +12,7 @@
  * - Custom Watermark Engine with Live Canvas Preview & Opacity/Placement Sliders
  * - Direct 1-Click Browser Download Trigger with simulated binary generation
  */
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { DownloadCloud, ArrowLeft, Check, ShieldCheck } from 'lucide-react';
 
 interface ExportLabProps {
@@ -36,11 +36,28 @@ export const ExportLab: React.FC<ExportLabProps> = ({
   const [watermarkPos] = useState<string>('bottom-right');
   const [watermarkOpacity] = useState<number>(65);
   const [isDownloading, setIsDownloading] = useState<boolean>(false);
+
+  // Store active timer reference to clear on unmount
+  const downloadTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (downloadTimerRef.current) {
+        clearTimeout(downloadTimerRef.current);
+      }
+    };
+  }, []);
+
   const formats = ['TIFF', 'PNG (16-bit)', 'JPEG XL', 'AVIF', 'ProRes RAW'];
 
   const handleExportDownload = () => {
     setIsDownloading(true);
-    const timer = setTimeout(() => {
+
+    if (downloadTimerRef.current) {
+      clearTimeout(downloadTimerRef.current);
+    }
+
+    downloadTimerRef.current = setTimeout(() => {
       const link = document.createElement('a');
       link.href = sourceImageUrl;
       link.download = `ZAVOKA_8K_${fileName.replace(/\.[^/.]+$/, '')}.${selectedFormat.toLowerCase().split(' ')[0]}`;
@@ -48,11 +65,13 @@ export const ExportLab: React.FC<ExportLabProps> = ({
       link.click();
       document.body.removeChild(link);
       setIsDownloading(false);
+      downloadTimerRef.current = null;
     }, 1200);
   };
 
   return (
     <div className="flex-1 flex flex-col lg:flex-row min-h-[calc(100vh-120px)] bg-[#090a0d]">
+      {/* Visual Canvas & Preview Section */}
       <div className="flex-1 flex flex-col items-center justify-center p-4 sm:p-8 relative">
         <div className="relative w-full max-w-2xl aspect-[16/10] rounded-3xl overflow-hidden border border-white/[0.08] shadow-2xl bg-[#0e1017] flex items-center justify-center">
           <img
@@ -67,16 +86,17 @@ export const ExportLab: React.FC<ExportLabProps> = ({
               }`}
               style={{ opacity: watermarkOpacity / 100 }}
             >
-              ZAVOKA • 8K PRO
+              ZAVOKA â€¢ 8K PRO
             </div>
           )}
         </div>
         <div className="mt-4 flex items-center gap-2 text-xs font-mono text-slate-400">
           <ShieldCheck className="w-4 h-4 text-emerald-400" />
-          <span>Lossless Bitstream Verified • Rec.2020 Gamut Clamped</span>
+          <span>Lossless Bitstream Verified â€¢ Rec.2020 Gamut Clamped</span>
         </div>
       </div>
 
+      {/* Control Panel */}
       <div className="w-full lg:w-96 border-t lg:border-t-0 lg:border-l border-white/[0.08] bg-[#0c0e14] p-6 flex flex-col gap-6">
         <div className="flex items-center justify-between">
           <h2 className="text-base font-bold text-white flex items-center gap-2">
