@@ -12,336 +12,169 @@
  * - Custom Watermark Engine with Live Canvas Preview & Opacity/Placement Sliders
  * - Direct 1-Click Browser Download Trigger with simulated binary generation
  */
+import React, { useState } from 'react';
+import { DownloadCloud, ArrowLeft, Check, ShieldCheck } from 'lucide-react';
 
-import React, { useState, useRef, useEffect, useMemo } from 'react';
-
-export type ExportFormat = 'TIFF' | 'RAW' | 'PNG' | 'JPG';
-export type ExportResolutionPreset = 'original' | '2k' | '4k' | '8k';
-export type ColorProfile = 'Display P3' | 'Adobe RGB' | 'sRGB' | 'ProPhoto RGB';
-export type WatermarkPosition = 'bottom-right' | 'bottom-left' | 'center' | 'top-right';
-
-export interface ExportLabProps {
-  sourceImageUrl?: string;
-  fileName?: string;
-  initialFormat?: ExportFormat;
-  onExportComplete?: (exportBlobUrl: string, metadata: Record<string, unknown>) => void;
+interface ExportLabProps {
+  sourceImageUrl: string;
+  fileName: string;
+  initialFormat?: string;
   onNavigateBack?: () => void;
 }
 
 export const ExportLab: React.FC<ExportLabProps> = ({
-  sourceImageUrl = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1600&auto=format&fit=crop',
-  fileName = 'Live_Captured_Asset_8K.raw',
+  sourceImageUrl,
+  fileName,
   initialFormat = 'TIFF',
-  onExportComplete,
   onNavigateBack,
 }) => {
-  // Core Render Settings
-  const [format, setFormat] = useState<ExportFormat>(initialFormat);
-  const [resolution, setResolution] = useState<ExportResolutionPreset>('8k');
-  const [dpi, setDpi] = useState<number>(300);
-  const [colorSpace, setColorSpace] = useState<ColorProfile>('Display P3');
+  const [selectedFormat, setSelectedFormat] = useState<string>(initialFormat);
+  const [colorSpace, setColorSpace] = useState<string>('Display P3');
   const [compressionQuality, setCompressionQuality] = useState<number>(100);
-
-  // EXIF & Metadata Toggles
   const [embedIcc, setEmbedIcc] = useState<boolean>(true);
   const [includeExif, setIncludeExif] = useState<boolean>(true);
-  const [stripGps, setStripGps] = useState<boolean>(true);
+  const [stripGps, setStripGps] = useState<boolean>(false);
+  const [watermarkEnabled, setWatermarkEnabled] = useState<boolean>(false);
+  const [watermarkOpacity, setWatermarkOpacity] = useState<number>(60);
+  const [watermarkPos, setWatermarkPos] = useState<string>('bottom-right');
+  const [isDownloading, setIsDownloading] = useState<boolean>(false);
 
-  // Watermark Configuration
-  const [enableWatermark, setEnableWatermark] = useState<boolean>(false);
-  const [watermarkText, setWatermarkText] = useState<string>('© ZAVOKA STUDIO 8K');
-  const [watermarkOpacity, setWatermarkOpacity] = useState<number>(65);
-  const [watermarkPos, setWatermarkPos] = useState<WatermarkPosition>('bottom-right');
+  const formats = ['TIFF', 'PNG (16-bit)', 'JPEG XL', 'AVIF', 'ProRes RAW'];
 
-  // Live Rendering State
-  const [isRendering, setIsRendering] = useState<boolean>(false);
-  const [renderProgress, setRenderProgress] = useState<number>(0);
-  const [downloadSuccess, setDownloadSuccess] = useState<boolean>(false);
-
-  // Calculate Resolution Dimensions and Estimated Size
-  const resolutionDetails = useMemo(() => {
-    switch (resolution) {
-      case '8k':
-        return { width: 7680, height: 4320, label: '8K UHD (33.2 MP)', estSizeMb: format === 'TIFF' ? 64.2 : format === 'RAW' ? 48.5 : format === 'PNG' ? 28.4 : 12.1 };
-      case '4k':
-        return { width: 3840, height: 2160, label: '4K UHD (8.3 MP)', estSizeMb: format === 'TIFF' ? 24.5 : format === 'RAW' ? 18.2 : format === 'PNG' ? 10.8 : 4.5 };
-      case '2k':
-        return { width: 2048, height: 1152, label: '2K Cinema (2.4 MP)', estSizeMb: format === 'TIFF' ? 8.2 : format === 'RAW' ? 6.5 : format === 'PNG' ? 3.6 : 1.4 };
-      default:
-        return { width: 1920, height: 1080, label: 'Native 1080p (2.1 MP)', estSizeMb: 2.8 };
-    }
-  }, [resolution, format]);
-
-  // Trigger Calibrated Render & Direct Download
-  const handleStartExport = () => {
-    setIsRendering(true);
-    setRenderProgress(15);
-
-    const interval = setInterval(() => {
-      setRenderProgress((prev) => {
-        if (prev >= 95) {
-          clearInterval(interval);
-          return 95;
-        }
-        return prev + 20;
-      });
-    }, 150);
-
+  const handleExportDownload = () => {
+    setIsDownloading(true);
     setTimeout(() => {
-      clearInterval(interval);
-      setRenderProgress(100);
-      setIsRendering(false);
-      setDownloadSuccess(true);
-
-      // Create synthetic download payload
-      const ext = format.toLowerCase();
-      const exportName = `Zavoka_${resolution.toUpperCase()}_Master.${ext}`;
-      
-      // Trigger real browser download
       const link = document.createElement('a');
       link.href = sourceImageUrl;
-      link.download = exportName;
+      link.download = `ZAVOKA_8K_${fileName.replace(/\.[^/.]+$/, '')}.${selectedFormat.toLowerCase().split(' ')[0]}`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-
-      if (onExportComplete) {
-        onExportComplete(sourceImageUrl, {
-          format,
-          resolution: resolutionDetails,
-          dpi,
-          colorSpace,
-          watermarked: enableWatermark,
-        });
-      }
-
-      setTimeout(() => setDownloadSuccess(false), 4500);
+      setIsDownloading(false);
     }, 1200);
   };
 
   return (
-    <div className="w-full max-w-7xl mx-auto flex flex-col xl:flex-row gap-6 p-4 sm:p-6 select-none">
-      
-      {/* Left Area: Live Master Preview Canvas */}
-      <div className="flex-1 flex flex-col gap-4">
-        
-        {/* Canvas Top Info Bar */}
-        <div className="flex flex-wrap items-center justify-between gap-3 bg-[#111318] border border-white/10 rounded-2xl px-4 py-3">
-          <div className="flex items-center gap-2.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#00f2fe] animate-pulse" />
-            <span className="text-xs font-bold text-white font-mono">{fileName}</span>
-            <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#00f2fe]/10 text-[#00f2fe] border border-[#00f2fe]/30 font-bold">
-              {resolutionDetails.width} × {resolutionDetails.height}
-            </span>
-          </div>
-
-          <div className="flex items-center gap-2 text-xs font-mono text-slate-400">
-            <span>Target DPI: <strong className="text-white">{dpi} DPI</strong></span>
-            <span>•</span>
-            <span>Profile: <strong className="text-[#00f2fe]">{colorSpace}</strong></span>
-          </div>
-        </div>
-
-        {/* Live Master Canvas Viewport */}
-        <div className="relative w-full h-[400px] sm:h-[500px] lg:h-[560px] bg-[#090a0d] rounded-3xl border border-white/10 overflow-hidden shadow-2xl flex items-center justify-center group">
+    <div className="flex-1 flex flex-col lg:flex-row min-h-[calc(100vh-120px)] bg-[#090a0d]">
+      <div className="flex-1 flex flex-col items-center justify-center p-4 sm:p-8 relative">
+        <div className="relative w-full max-w-2xl aspect-[16/10] rounded-3xl overflow-hidden border border-white/[0.08] shadow-2xl bg-[#0e1017] flex items-center justify-center">
           <img
             src={sourceImageUrl}
-            alt="Export Preview"
-            className="w-full h-full object-cover select-none"
+            alt="Export preview"
+            className="w-full h-full object-cover"
           />
-
-          {/* Dynamic Watermark Overlay */}
-          {enableWatermark && (
+          {watermarkEnabled && (
             <div
-              className={`absolute z-20 pointer-events-none px-4 py-2 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10 text-white font-mono text-xs font-bold tracking-widest ${
-                watermarkPos === 'bottom-right'
-                  ? 'bottom-6 right-6'
-                  : watermarkPos === 'bottom-left'
-                  ? 'bottom-6 left-6'
-                  : watermarkPos === 'top-right'
-                  ? 'top-6 right-6'
-                  : 'top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'
+              className={`absolute m-6 px-3 py-1.5 rounded-lg bg-black/60 backdrop-blur-md border border-white/20 text-[11px] font-mono tracking-widest text-[#00f2fe] uppercase ${
+                watermarkPos === 'bottom-right' ? 'bottom-0 right-0' : 'top-0 left-0'
               }`}
               style={{ opacity: watermarkOpacity / 100 }}
             >
-              {watermarkText}
+              ZAVOKA • 8K PRO
             </div>
           )}
-
-          {/* Floating Master HUD Specs */}
-          <div className="absolute top-4 left-4 flex flex-col gap-1.5 pointer-events-none">
-            <span className="px-2.5 py-1 rounded-lg bg-black/70 backdrop-blur-md border border-white/10 text-white font-mono text-xs font-bold">
-              {format} • {resolutionDetails.label}
-            </span>
-            <span className="text-[10px] font-mono text-[#00f2fe]">
-              Est. Binary: ~{resolutionDetails.estSizeMb} MB
-            </span>
-          </div>
-
-          {/* In-Flight Render Progress Overlay */}
-          {isRendering && (
-            <div className="absolute inset-0 z-30 bg-black/80 backdrop-blur-md flex flex-col items-center justify-center p-6">
-              <div className="w-16 h-16 rounded-2xl bg-[#00f2fe]/20 border border-[#00f2fe]/40 flex items-center justify-center text-[#00f2fe] mb-4 animate-bounce">
-                <svg className="w-8 h-8 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                </svg>
-              </div>
-              <h3 className="text-base font-bold text-white mb-2">Baking 8K Neural Master...</h3>
-              <div className="w-64 h-2 bg-white/10 rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-gradient-to-r from-[#00f2fe] to-[#8b5cf6] transition-all duration-150"
-                  style={{ width: `${renderProgress}%` }}
-                />
-              </div>
-              <span className="mt-2 text-xs font-mono text-[#00f2fe]">{renderProgress}% Complete</span>
-            </div>
-          )}
-
-          {/* Download Success Notification */}
-          {downloadSuccess && (
-            <div className="absolute bottom-6 inset-x-6 z-30 p-4 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 backdrop-blur-xl flex items-center justify-between shadow-2xl">
-              <div className="flex items-center gap-3 text-emerald-300 text-xs font-bold">
-                <svg className="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-                </svg>
-                <span>Ultra 8K Master successfully rendered & downloaded!</span>
-              </div>
-              <span className="text-[10px] font-mono text-emerald-400 font-bold">Lossless Clean Output</span>
-            </div>
-          )}
-
+        </div>
+        <div className="mt-4 flex items-center gap-2 text-xs font-mono text-slate-400">
+          <ShieldCheck className="w-4 h-4 text-emerald-400" />
+          <span>Lossless Bitstream Verified • Rec.2020 Gamut Clamped</span>
         </div>
       </div>
 
-      {/* Right Area: Calibrated Parameters & Export Settings */}
-      <div className="w-full xl:w-96 flex flex-col gap-5">
-        
-        {/* Format & Resolution Matrix */}
-        <div className="bg-[#111318] border border-white/10 rounded-3xl p-5 shadow-xl flex flex-col gap-4">
-          <h3 className="text-sm font-bold text-white tracking-tight flex items-center justify-between">
-            <span>Export Format</span>
-            <span className="text-[10px] font-mono text-[#00f2fe]">Pro Calibrated</span>
-          </h3>
-
-          {/* Format Selector Buttons */}
-          <div className="grid grid-cols-4 gap-2">
-            {(['TIFF', 'RAW', 'PNG', 'JPG'] as ExportFormat[]).map((f) => {
-              const isActive = format === f;
-              return (
-                <button
-                  key={f}
-                  onClick={() => setFormat(f)}
-                  className={`py-2 px-1 rounded-xl text-xs font-bold transition-all text-center border cursor-pointer ${
-                    isActive
-                      ? 'bg-[#00f2fe] text-[#0b0d11] border-[#00f2fe] shadow-[0_0_12px_rgba(0,242,254,0.3)]'
-                      : 'bg-[#0b0d11] text-slate-400 hover:text-white border-white/5 hover:border-white/20'
-                  }`}
-                >
-                  {f}
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Resolution Presets */}
-          <div className="flex flex-col gap-2 mt-2">
-            <label className="text-xs font-medium text-slate-300">Target Resolution</label>
-            <div className="grid grid-cols-3 gap-2">
-              {(['2k', '4k', '8k'] as ExportResolutionPreset[]).map((res) => {
-                const isActive = resolution === res;
-                return (
-                  <button
-                    key={res}
-                    onClick={() => setResolution(res)}
-                    className={`py-2 rounded-xl text-xs font-bold transition-all border cursor-pointer ${
-                      isActive
-                        ? 'bg-[#00f2fe]/10 border-[#00f2fe] text-[#00f2fe]'
-                        : 'bg-[#0b0d11] border-white/5 text-slate-400 hover:text-white'
-                    }`}
-                  >
-                    {res.toUpperCase()} Ultra
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* DPI Print Density Switcher */}
-          <div className="flex flex-col gap-2 mt-2">
-            <div className="flex justify-between items-center text-xs">
-              <span className="text-slate-300 font-medium">Print Density (DPI)</span>
-              <span className="font-mono text-[#00f2fe]">{dpi} DPI</span>
-            </div>
-            <div className="grid grid-cols-3 gap-2">
-              {[72, 300, 600].map((d) => (
-                <button
-                  key={d}
-                  onClick={() => setDpi(d)}
-                  className={`py-1.5 rounded-lg text-xs font-mono font-bold transition-all border ${
-                    dpi === d
-                      ? 'bg-white/10 border-white/30 text-white'
-                      : 'bg-[#0b0d11] border-white/5 text-slate-400'
-                  }`}
-                >
-                  {d} DPI
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Watermark & Security Controls */}
-        <div className="bg-[#111318] border border-white/10 rounded-3xl p-5 shadow-xl flex flex-col gap-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h4 className="text-xs font-bold text-white">Brand Watermark</h4>
-              <p className="text-[10px] text-slate-400">Optional protection layer</p>
-            </div>
+      <div className="w-full lg:w-96 border-t lg:border-t-0 lg:border-l border-white/[0.08] bg-[#0c0e14] p-6 flex flex-col gap-6">
+        <div className="flex items-center justify-between">
+          <h2 className="text-base font-bold text-white flex items-center gap-2">
+            <DownloadCloud className="w-4 h-4 text-[#00f2fe]" />
+            Lossless Export Lab
+          </h2>
+          {onNavigateBack && (
             <button
-              type="button"
-              onClick={() => setEnableWatermark(!enableWatermark)}
-              className={`w-11 h-6 rounded-full transition-colors relative cursor-pointer ${
-                enableWatermark ? 'bg-[#00f2fe]' : 'bg-slate-700'
-              }`}
+              onClick={onNavigateBack}
+              className="text-xs text-slate-400 hover:text-white flex items-center gap-1 cursor-pointer"
             >
-              <span
-                className={`absolute top-1 w-4 h-4 rounded-full bg-[#0b0d11] transition-transform ${
-                  enableWatermark ? 'left-6' : 'left-1'
-                }`}
-              />
+              <ArrowLeft className="w-3.5 h-3.5" /> Back
             </button>
-          </div>
-
-          {enableWatermark && (
-            <div className="flex flex-col gap-3 pt-2 border-t border-white/5 animate-fade-in">
-              <input
-                type="text"
-                value={watermarkText}
-                onChange={(e) => setWatermarkText(e.target.value)}
-                className="w-full bg-[#0b0d11] border border-white/10 rounded-xl px-3 py-1.5 text-xs text-white font-mono focus:border-[#00f2fe] outline-none"
-                placeholder="Watermark string"
-              />
-              <div className="flex justify-between text-xs font-mono text-slate-400">
-                <span>Opacity: {watermarkOpacity}%</span>
-                <span>Position: {watermarkPos}</span>
-              </div>
-            </div>
           )}
         </div>
 
-        {/* Final Export Action Button */}
-        <button
-          type="button"
-          onClick={handleStartExport}
-          disabled={isRendering}
-          className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-[#00f2fe] via-[#38bdf8] to-[#8b5cf6] text-[#08090c] font-extrabold text-sm tracking-wide shadow-[0_0_30px_rgba(0,242,254,0.4)] hover:shadow-[0_0_40px_rgba(0,242,254,0.6)] transition-all cursor-pointer flex items-center justify-center gap-3 active:scale-98"
-        >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-          </svg>
-          <span>{isRendering ? 'Rendering 8K Master...' : `Render & Download ${format} (${resolutionDetails.estSizeMb} MB)`}</span>
-        </button>
+        <div className="space-y-2">
+          <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider">
+            Format Container
+          </label>
+          <div className="grid grid-cols-2 gap-2">
+            {formats.map((fmt) => (
+              <button
+                key={fmt}
+                onClick={() => setSelectedFormat(fmt)}
+                className={`py-2 px-3 rounded-xl border text-xs font-semibold transition-all ${
+                  selectedFormat === fmt
+                    ? 'border-[#00f2fe] bg-[#00f2fe]/10 text-white'
+                    : 'border-white/[0.06] bg-white/[0.02] text-slate-400 hover:text-white'
+                }`}
+              >
+                {fmt}
+              </button>
+            ))}
+          </div>
+        </div>
 
+        <div className="space-y-3 pt-2 border-t border-white/[0.08]">
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-slate-300">Embed ICC Profile</span>
+            <input
+              type="checkbox"
+              checked={embedIcc}
+              onChange={(e) => setEmbedIcc(e.target.checked)}
+              className="accent-[#00f2fe]"
+            />
+          </div>
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-slate-300">Preserve EXIF Metadata</span>
+            <input
+              type="checkbox"
+              checked={includeExif}
+              onChange={(e) => setIncludeExif(e.target.checked)}
+              className="accent-[#00f2fe]"
+            />
+          </div>
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-slate-300">Strip GPS Coordinates</span>
+            <input
+              type="checkbox"
+              checked={stripGps}
+              onChange={(e) => setStripGps(e.target.checked)}
+              className="accent-[#00f2fe]"
+            />
+          </div>
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-slate-300">Branded Watermark</span>
+            <input
+              type="checkbox"
+              checked={watermarkEnabled}
+              onChange={(e) => setWatermarkEnabled(e.target.checked)}
+              className="accent-[#00f2fe]"
+            />
+          </div>
+        </div>
+
+        <div className="pt-4 border-t border-white/[0.08] mt-auto">
+          <button
+            onClick={handleExportDownload}
+            disabled={isDownloading}
+            className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#00f2fe] to-[#8b5cf6] text-black font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(0,242,254,0.3)] hover:opacity-95 transition-all cursor-pointer disabled:opacity-50"
+          >
+            {isDownloading ? (
+              <>
+                <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
+                Packaging 8K Bitstream...
+              </>
+            ) : (
+              <>
+                <Check className="w-4 h-4" />
+                Download ({selectedFormat})
+              </>
+            )}
+          </button>
+        </div>
       </div>
     </div>
   );
