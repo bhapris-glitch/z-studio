@@ -29,21 +29,16 @@ export const ExportLab: React.FC<ExportLabProps> = ({
   onNavigateBack,
 }) => {
   const [selectedFormat, setSelectedFormat] = useState<string>(initialFormat);
-  const [colorSpace, setColorSpace] = useState<string>('Display P3');
-  const [compressionQuality, setCompressionQuality] = useState<number>(100);
   const [embedIcc, setEmbedIcc] = useState<boolean>(true);
   const [includeExif, setIncludeExif] = useState<boolean>(true);
   const [stripGps, setStripGps] = useState<boolean>(false);
   const [watermarkEnabled, setWatermarkEnabled] = useState<boolean>(false);
-  const [watermarkOpacity, setWatermarkOpacity] = useState<number>(60);
-  const [watermarkPos, setWatermarkPos] = useState<string>('bottom-right');
   const [isDownloading, setIsDownloading] = useState<boolean>(false);
-
   const formats = ['TIFF', 'PNG (16-bit)', 'JPEG XL', 'AVIF', 'ProRes RAW'];
 
   const handleExportDownload = () => {
     setIsDownloading(true);
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       const link = document.createElement('a');
       link.href = sourceImageUrl;
       link.download = `ZAVOKA_8K_${fileName.replace(/\.[^/.]+$/, '')}.${selectedFormat.toLowerCase().split(' ')[0]}`;
@@ -52,6 +47,7 @@ export const ExportLab: React.FC<ExportLabProps> = ({
       document.body.removeChild(link);
       setIsDownloading(false);
     }, 1200);
+    return () => clearTimeout(timer);
   };
 
   return (
@@ -105,10 +101,10 @@ export const ExportLab: React.FC<ExportLabProps> = ({
               <button
                 key={fmt}
                 onClick={() => setSelectedFormat(fmt)}
-                className={`py-2 px-3 rounded-xl border text-xs font-semibold transition-all ${
+                className={`py-2 px-3 rounded-xl border text-xs font-medium transition-all ${
                   selectedFormat === fmt
-                    ? 'border-[#00f2fe] bg-[#00f2fe]/10 text-white'
-                    : 'border-white/[0.06] bg-white/[0.02] text-slate-400 hover:text-white'
+                    ? 'bg-[#00f2fe]/10 border-[#00f2fe] text-[#00f2fe]'
+                    : 'bg-[#13161f] border-white/[0.08] text-slate-300 hover:border-white/20'
                 }`}
               >
                 {fmt}
